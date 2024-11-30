@@ -1,10 +1,32 @@
 @model Forum.ViewModels.ChatViewModel
 
-<div class="row mb-3">
-    <h5>@Model.Thema.Title</h5>
-    <p>@Model.Thema.CreatedAt</p>
-    <p>@Model.Thema.User</p>
+<h5 class="text-center">@Model.Thema.Title</h5>
+<div class="d-flex justify-content-start">
+    <p class="me-4">@Model.Thema.User</p>
+    <p class="me-4">@Model.Thema.CreatedAt</p>
 </div>
+
+@if (User.Identity.IsAuthenticated && Model.CurrentUser != null && Model.CurrentUser.Id == Model.Thema.UserId)
+{
+    <div class="dropdown">
+        <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bars fa-beat fa-1xl"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item text-danger" asp-action="Delete" asp-controller="Thema" asp-route-id="@Model.Thema.Id">
+                    Удалить
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-warning" asp-action="Edit" asp-controller="Thema" asp-route-id="@Model.Thema.Id">
+                    Редактировать
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+
 
 <div class="card border-2 border-dark h-25">
     <p>@Model.Thema.Content</p>
@@ -15,7 +37,7 @@
 
 <div class="card border-2 border-dark">
     <div id="chatWindow" style="height: 400px; overflow-y: scroll;">
-        
+
         @{
             await Html.RenderPartialAsync("_MessagePartialView", Model);
         }
@@ -23,7 +45,7 @@
     <textarea id="messageText" maxlength="100" placeholder="Введите сообщение..."></textarea>
     <span id="charCount" class="text-muted d-block">Осталось символов: 100</span>
     <span id="errorText" class="text-danger d-none">Сообщение не может быть длиннее 100 символов.</span>
-   
+
 </div>
 
 @section Scripts {
@@ -89,5 +111,3 @@
     });
 </script>
 }
-
-

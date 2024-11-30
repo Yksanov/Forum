@@ -60,7 +60,7 @@ namespace Forum.Controllers
             }
 
             var thema = _context.Themas.Include(t => t.Messages).FirstOrDefault(t => t.Id == id);
-            var currentUser = _userManager.GetUserAsync(User).Result;  // Пример получения текущего пользователя
+            var currentUser = _userManager.GetUserAsync(User).Result;
 
             ChatViewModel viewModel = new ChatViewModel
             {
@@ -101,7 +101,7 @@ namespace Forum.Controllers
             return View(thema);
         }
 
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,7 +120,7 @@ namespace Forum.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CreatedAt")] Thema thema)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CreatedAt, UserId")] Thema thema)
         {
             if (id != thema.Id)
             {
@@ -131,6 +131,14 @@ namespace Forum.Controllers
             {
                 try
                 {
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user == null)
+                    {
+                        return Unauthorized();
+                    }
+
+                    thema.UserId = user.Id;
+
                     _context.Update(thema);
                     await _context.SaveChangesAsync();
                 }
@@ -145,7 +153,7 @@ namespace Forum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Thema", new{id = thema.Id});
             }
             return View(thema);
         }
@@ -225,17 +233,18 @@ namespace Forum.Controllers
             return PartialView("_MessagePartialView", model); 
         }
 
-        
-         public async Task<IActionResult> GetMessages(int topicId)
-         {
-             User currentUser = await _userManager.GetUserAsync(User);
-             List<Message> messages = await _context.Messages.Include(m => m.User).Where(m => m.ThemaId == topicId).OrderByDescending(m => m.CreatedAt).ToListAsync();
-             ChatViewModel model = new ChatViewModel()
-             {
-                 CurrentUser = currentUser,
-                 Messages = messages
-             };
-             return PartialView("_MessagePartialView",model);
-         }
+
+        public async Task<IActionResult> GetMessages(int topicId)
+        {
+            User currentUser = await _userManager.GetUserAsync(User);
+            List<Message> messages = await _context.Messages.Include(m => m.User).Where(m => m.ThemaId == topicId)
+                .OrderByDescending(m => m.CreatedAt).ToListAsync();
+            ChatViewModel model = new ChatViewModel()
+            {
+                CurrentUser = currentUser,
+                Messages = messages
+            };
+            return PartialView("_MessagePartialView", model);
+        }
     }
 }
