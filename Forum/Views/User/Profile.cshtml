@@ -14,6 +14,16 @@
                 <div class="d-flex justify-content-start align-items-center">
                     <p class="fs-4 me-3 mb-0">@Model.User.UserName</p>
                 </div>
+                @if (Model.User.Id == Model.CurrentUser.Id)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Email: @Model.User.Email</li>
+                            <li class="list-group-item">Кол-во сообщение: @Model.User.Messages.Count</li>
+                            <li class="list-group-item">Кол-во тема: @Model.User.Themas.Count</li>
+                        </ul>
+                    </div>
+                }
             </div>
             <div class="border border-1 mt-5"></div>
         </div>

@@ -59,7 +59,7 @@ namespace Forum.Controllers
                 return NotFound();
             }
 
-            var thema = _context.Themas.Include(t => t.Messages).FirstOrDefault(t => t.Id == id);
+            var thema = _context.Themas.Include(t => t.User).ThenInclude(m => m.Messages).FirstOrDefault(t => t.Id == id);
             var currentUser = _userManager.GetUserAsync(User).Result;
 
             ChatViewModel viewModel = new ChatViewModel

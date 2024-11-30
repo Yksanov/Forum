@@ -34,6 +34,15 @@ public class UserController : Controller
             return NotFound();
         }
         
+        user.Themas = await _context.Themas.Where(t => t.UserId == user.Id)
+            .Include(t => t.User)
+            .ToListAsync();
+        
+        user.Messages = await _context.Messages.Where(r => r.UserId == user.Id)
+            .Include(r => r.User)
+            .Include(r => r.Thema)
+            .ToListAsync();
+        
         List<Message> messages = await _context.Messages.Where(m => m.UserId == user.Id).ToListAsync();
         int count = messages.Count;
         ViewBag.CountMessages = count;
