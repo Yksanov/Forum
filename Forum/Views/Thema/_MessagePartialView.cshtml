@@ -1,0 +1,17 @@
+@model Forum.ViewModels.ChatViewModel
+
+
+@foreach (var message in Model.Messages)
+{
+    if (message.User.Id == Model.CurrentUser.Id)
+    {
+        <div class="px-3 ms-2 mt-2 text-start">
+            <a class="text-decoration-none" asp-action="Profile" asp-controller="User" asp-route-id="@message.UserId">
+                <img src="@message.User.PathToAvatarPhoto" alt="Avatar" width="40px" height="40px"/>
+                <strong class="text-black">@message.User</strong>
+            </a>
+            <p class="m-0 p-0">@message.Text</p>
+            <small class="text-muted">@message.CreatedAt</small><br/>
+        </div>
+    }
+}
