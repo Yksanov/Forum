@@ -53,7 +53,7 @@ public class AccountController : Controller
                      return Redirect(model.ReturnUrl);
                  }
 
-                 return RedirectToAction("Index", "Message");
+                 return RedirectToAction("Index", "Thema");
              }
              
              ModelState.AddModelError(string.Empty, "Неправильные логин или пароль");
@@ -105,8 +105,8 @@ public class AccountController : Controller
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                await _userManager.AddToRoleAsync(user, "user");
-                return RedirectToAction("Index", "Message");
+                // await _userManager.AddToRoleAsync(user, "user");
+                return RedirectToAction("Index", "Thema");
             }
 
             foreach (IdentityError error in result.Errors) 
@@ -124,6 +124,6 @@ public class AccountController : Controller
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();
-        return RedirectToAction("Index", "Message");
+        return RedirectToAction("Index", "Thema");
     }
 }

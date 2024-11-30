@@ -1,0 +1,85 @@
+@model Forum.ViewModels.ThemaModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Тема</h1>
+
+<div class="card border-2 border-dark">
+<table class="table">
+    <tbody>
+    @foreach (var item in Model.Themas) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>
+
+<div class="d-flex justify-content-end">
+    <div>
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+               class="btn btn-outline-primary">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Предыдущая
+            </a>
+        }
+    </div>
+
+    @if (Model.PageViewModel.PageNumber - 3 > 0)
+    {
+        <input type="button" disabled class="btn btn-outline-secondary" value="..."/>
+    }
+
+    @for (int i = System.Math.Max(Model.PageViewModel.PageNumber - 2, 1); i < Model.PageViewModel.PageNumber && i > 0; i--)
+    {
+        <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-primary">@i</a>
+    }
+
+    @for (int i = Model.PageViewModel.PageNumber; i <= (Model.PageViewModel.PageNumber + 2) && i <= Model.PageViewModel.TotalPages; i++)
+    {
+        if (i == Model.PageViewModel.PageNumber)
+        {
+            <input type="button" disabled class="btn btn-outline-secondary" value="@i"/>
+        }
+        else
+        {
+            <a asp-action="Index" asp-route-page="@i" class="btn btn-outline-primary">@i</a>
+        }
+    }
+
+    @if (Model.PageViewModel.PageNumber + 2 < Model.PageViewModel.TotalPages)
+    {
+        <input type="button" disabled class="btn btn-outline-secondary" value="..."/>
+    }
+
+    <div>
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+               class="btn btn-outline-primary">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+                Следующая
+            </a>
+        }
+    </div>
+</div>
