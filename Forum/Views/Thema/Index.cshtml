@@ -7,28 +7,35 @@
 <h1 class="text-center">Тема</h1>
 
 <div class="card border-2 border-dark">
-<table class="table">
-    <tbody>
-    @foreach (var item in Model.Themas) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+    <table class="table">
+        <tbody>
+        @foreach (var item in Model.Themas)
+        {
+            <tr>
+                <td>
+                    <a class="text-decoration-none text-black" asp-action="Details" asp-controller="Thema" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+                </td>
+                <td>
+                    <a class="text-decoration-none text-black" asp-action="Details" asp-controller="Thema" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                    </a>
+                </td>
+                <td>
+                    <a class="text-decoration-none text-black" asp-action="Details" asp-controller="Thema" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </a>
+                </td>
+                <td>
+                    <a class="text-decoration-none text-black" asp-action="Details" asp-controller="Thema" asp-route-id="@item.Id">
+                        Ответов: @item.Messages.Count
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
 </div>
 
 <div class="d-flex justify-content-end">

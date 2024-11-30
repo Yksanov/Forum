@@ -28,3 +28,17 @@ body {
   position: relative;
   z-index: 2;
 }
+
+textarea{
+  resize: none;
+}
+
+.is-invalid {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+.text-danger {
+  color: red;
+  font-size: 0.9rem;
+}

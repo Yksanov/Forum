@@ -1,42 +1,93 @@
-@model Forum.Models.Thema
+@model Forum.ViewModels.ChatViewModel
 
-@{
-    ViewData["Title"] = "Details";
+<div class="row mb-3">
+    <h5>@Model.Thema.Title</h5>
+    <p>@Model.Thema.CreatedAt</p>
+    <p>@Model.Thema.User</p>
+</div>
+
+<div class="card border-2 border-dark h-25">
+    <p>@Model.Thema.Content</p>
+    <div class="d-flex justify-content-end pb-3 px-3">
+        <button class="btn btn-secondary" id="sendButton">Ответить</button>
+    </div>
+</div>
+
+<div class="card border-2 border-dark">
+    <div id="chatWindow" style="height: 400px; overflow-y: scroll;">
+        
+        @{
+            await Html.RenderPartialAsync("_MessagePartialView", Model);
+        }
+    </div>
+    <textarea id="messageText" maxlength="100" placeholder="Введите сообщение..."></textarea>
+    <span id="charCount" class="text-muted d-block">Осталось символов: 100</span>
+    <span id="errorText" class="text-danger d-none">Сообщение не может быть длиннее 100 символов.</span>
+   
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function() {
+        const maxLength = 100;
+        $('#messageText').on('input', function () {
+            const textLength = $(this).val().length;
+            const charsLeft = maxLength - textLength;
+
+            $("#charCount").text(`Осталось символов: ${charsLeft}`);
+
+            if (charsLeft >= 0) {
+                $(this).removeClass('is-invalid');
+                $('#errorText').addClass('d-none');
+            }
+        });
+
+        $("#sendButton").click(function () {
+            sendMessage();
+        });
+
+        $('#messageText').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            let text = $("#messageText").val().trim();
+
+            if (text === '') {
+                $("#messageText").addClass('is-invalid');
+                $('#errorText').text('Сообщение не может быть пустым.').removeClass('d-none');
+                return;
+            }
+
+            if (text.length > maxLength) {
+                $("#messageText").addClass('is-invalid');
+                $('#errorText').text('Сообщение не может быть длиннее 100 символов').removeClass('d-none');
+                return;
+            }
+
+            $('#messageText').removeClass('is-invalid');
+            $('#errorText').addClass('d-none');
+            
+            let topicId = @Model.Thema.Id; 
+            $.ajax({
+                url: '@Url.Action("SendMessage", "Thema")',
+                type: 'POST',
+                data: { text: text, topicId: topicId },
+                success: function(response) {
+                    $('#messageText').val('');
+                    $('#charCount').text('Осталось символов: 100');
+                    $('#chatWindow').html(response);
+                },
+                error: function() {
+                    console.log("Ошибка при отправке сообщения.");
+                }
+            });
+        }
+    });
+</script>
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Thema</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

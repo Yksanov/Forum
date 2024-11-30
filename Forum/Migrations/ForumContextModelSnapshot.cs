@@ -293,7 +293,7 @@ namespace Forum.Migrations
                         .IsRequired();
 
                     b.HasOne("Forum.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -306,7 +306,7 @@ namespace Forum.Migrations
             modelBuilder.Entity("Forum.Models.Thema", b =>
                 {
                     b.HasOne("Forum.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Themas")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -368,6 +368,13 @@ namespace Forum.Migrations
             modelBuilder.Entity("Forum.Models.Thema", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("Forum.Models.User", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("Themas");
                 });
 #pragma warning restore 612, 618
         }
