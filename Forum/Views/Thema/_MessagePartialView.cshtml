@@ -1,9 +1,8 @@
 @model Forum.ViewModels.ChatViewModel
 
-
 @foreach (var message in Model.Messages)
 {
-    if (message.User.Id == Model.CurrentUser.Id)
+    if (message != null && message.User != null && message.Text != null)
     {
         <div class="px-3 ms-2 mt-2 text-start">
             <a class="text-decoration-none" asp-action="Profile" asp-controller="User" asp-route-id="@message.UserId">
@@ -14,4 +13,5 @@
             <small class="text-muted">@message.CreatedAt</small><br/>
         </div>
     }
+    
 }

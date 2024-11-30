@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zJpXG4pYpIx2wFKg5fzVC5k81dDHHioDFpmltAwojuw=",
+  "Hash": "hIL8KfgJee6ON4s6hqQXVg88tluuJKmBoEHSG9olyrg=",
   "Source": "Forum",
   "BasePath": "_content/Forum",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Attractor\\month#2\\Forum\\Forum\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Forum.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Attractor\\month#2\\Forum\\Forum\\wwwroot\\avatars\\avatar_dastan.dastan@gmail.com.jpg",
+      "SourceId": "Forum",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Attractor\\month#2\\Forum\\Forum\\wwwroot\\",
+      "BasePath": "_content/Forum",
+      "RelativePath": "avatars/avatar_dastan.dastan@gmail.com.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\avatars\\avatar_dastan.dastan@gmail.com.jpg"
     },
     {
       "Identity": "D:\\Attractor\\month#2\\Forum\\Forum\\wwwroot\\avatars\\avatar_eldosyksanov@gmail.ru.jpg",
