@@ -52,22 +52,42 @@ namespace Forum.Controllers
             return View(viewModel);
         }
         
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int page = 1)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var thema = _context.Themas.Include(t => t.User).ThenInclude(m => m.Messages).FirstOrDefault(t => t.Id == id);
+            var thema = _context.Themas.Include(t => t.User).FirstOrDefault(t => t.Id == id);
+
+            IQueryable<Message> messagesQuery = _context.Messages.Where(m => m.ThemaId == thema.Id)
+                .Include(r => r.User).ThenInclude(m => m.Messages);
+            if (thema == null)
+            {
+                return NotFound();
+            }
+
+            int pageSize = 5;
+            int count = await messagesQuery.CountAsync();
+            
+            List<Message> messages = await messagesQuery.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            thema.Messages = messages;
+            
             var currentUser = _userManager.GetUserAsync(User).Result;
 
             ChatViewModel viewModel = new ChatViewModel
             {
                 Thema = thema,
                 Messages = thema.Messages,
-                CurrentUser = currentUser
+                CurrentUser = currentUser,
+                PageViewModel = new PageViewModel(count, page, pageSize)
             };
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                viewModel.CurrentUser = await _userManager.GetUserAsync(User);
+            }
 
             return View(viewModel);
         }
@@ -234,15 +254,39 @@ namespace Forum.Controllers
         }
 
 
-        public async Task<IActionResult> GetMessages(int topicId)
+        public async Task<IActionResult> GetMessages(int topicId, int page = 1)
         {
+            Thema? thema = await _context.Themas.FirstOrDefaultAsync(t => t.Id.ToString() == topicId.ToString());
+
+            if (thema == null)
+            {
+                return NotFound();
+            }
+            
+            IQueryable<Message> messagesQuery = _context.Messages.Where(r => r.ThemaId == thema.Id)
+                .Include(r => r.User)
+                .ThenInclude(u => u.Messages)
+                .OrderBy(r => r.CreatedAt);
+            
+            if (thema == null)
+            {
+                return NotFound();
+            }
+            
+            int pageSize = 5;
+            int count = await messagesQuery.CountAsync();
+
+            List<Message> messages = await messagesQuery.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            
             User currentUser = await _userManager.GetUserAsync(User);
-            List<Message> messages = await _context.Messages.Include(m => m.User).Where(m => m.ThemaId == topicId)
-                .OrderByDescending(m => m.CreatedAt).ToListAsync();
+            // List<Message> messages = await _context.Messages.Include(m => m.User).Where(m => m.ThemaId == topicId)
+            //     .OrderByDescending(m => m.CreatedAt).ToListAsync();
+            
             ChatViewModel model = new ChatViewModel()
             {
                 CurrentUser = currentUser,
-                Messages = messages
+                Messages = messages,
+                PageViewModel = new PageViewModel(count, page, pageSize)
             };
             return PartialView("_MessagePartialView", model);
         }

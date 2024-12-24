@@ -1,4 +1,5 @@
 using Forum.Models;
+using Forum.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.LoginPath = "/Account/Login";
 });
-
+builder.Services.AddTransient<IUserRepository,UserRepository>();
 
 var app = builder.Build();
 

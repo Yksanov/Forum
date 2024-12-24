@@ -109,5 +109,19 @@
             });
         }
     });
+
+    function changePage(pageNumber) {
+        $.ajax({
+            url: '@Url.Action("GetMessages", "Thema")',
+            type: 'GET',
+            data: {'topicId' : '@Model.Thema.Id', 'page' : pageNumber},
+            success: function (response) {
+                repliesBlock.html(response);
+                window.scrollTo(0, document.body.scrollHeight);
+                replyInput.val('');
+            },
+            error: () => console.log('error on reply')
+        });
+    };
 </script>
 }

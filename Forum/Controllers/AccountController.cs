@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Forum.Models;
+using Forum.Repositories;
 using Forum.ViewModels;
 using SignInResult = Microsoft.AspNetCore.Mvc.SignInResult;
 
@@ -11,12 +12,14 @@ public class AccountController : Controller
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IWebHostEnvironment _environment;
+    private readonly IUserRepository _userRepository;
     
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IWebHostEnvironment environment)
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IWebHostEnvironment environment, IUserRepository userRepository)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _environment = environment;
+        _userRepository = userRepository;
     }
     
     [HttpGet]
@@ -98,6 +101,7 @@ public class AccountController : Controller
                 UserName = model.UserName.ToLower(),
                 Email = model.Email,
                 PathToAvatarPhoto = $"/avatars/{fileName}"
+                //PathToAvatarPhoto = string.IsNullOrEmpty(model.Avatar) ? "https://thumbs.dreamstime.com/b/default-avatar-profile-flat-icon-social-media-user-vector-portrait-unknown-human-image-default-avatar-profile-flat-icon-184330869.jpg" : model.Avatar
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);

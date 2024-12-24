@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "D:\\Attractor\\month#2\\Forum\\Forum\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Forum.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Forum.bundle.scp.css"
+      "PackagePath": "staticwebassets\\Forum.gseslzbk8w.bundle.scp.css"
     },
     {
       "Id": "D:\\Attractor\\month#2\\Forum\\Forum\\wwwroot\\avatars\\avatar_dastan.dastan@gmail.com.jpg",
@@ -251,6 +251,10 @@
     {
       "Id": "D:\\Attractor\\month#2\\Forum\\Forum\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Forum.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Forum.Microsoft.AspNetCore.StaticWebAssets.props",

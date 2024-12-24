@@ -114,3 +114,6 @@ D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\refint\Forum.dll
 D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\Forum.pdb
 D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\Forum.genruntimeconfig.cache
 D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\ref\Forum.dll
+D:\Attractor\month#2\Forum\Forum\bin\Debug\net8.0\Forum.staticwebassets.endpoints.json
+D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Attractor\month#2\Forum\Forum\obj\Debug\net8.0\staticwebassets\msbuild.Forum.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
