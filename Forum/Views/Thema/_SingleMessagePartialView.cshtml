@@ -1,0 +1,10 @@
+@model Forum.Models.Message
+
+<div class="px-3 ms-2 mt-2 text-start">
+    <a class="text-decoration-none" asp-action="Profile" asp-controller="User" asp-route-id="@Model.UserId">
+        <img src="@Model.User.PathToAvatarPhoto" alt="Avatar" width="40px" height="40px"/>
+        <strong class="text-black">@Model.User</strong>
+    </a>
+    <p class="m-0 p-0">@Model.Text</p>
+    <small class="text-muted">@Model.CreatedAt</small><br/>
+</div>
