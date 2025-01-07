@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -233,7 +229,8 @@ namespace Forum.Controllers
             {
                 Text = text,
                 User = user,
-                ThemaId = topicId 
+                ThemaId = topicId,
+                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
             };
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
@@ -250,7 +247,8 @@ namespace Forum.Controllers
                 Messages = messages
             };
 
-            return PartialView("_MessagePartialView", model); 
+            //return PartialView("_MessagePartialView", model); 
+            return PartialView("_SingleMessagePartialView", message);
         }
 
 

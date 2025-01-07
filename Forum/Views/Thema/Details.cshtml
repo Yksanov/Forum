@@ -84,7 +84,7 @@
                 return;
             }
 
-            if (text.length > maxLength) {
+            if (text.length > 100) {
                 $("#messageText").addClass('is-invalid');
                 $('#errorText').text('Сообщение не может быть длиннее 100 символов').removeClass('d-none');
                 return;
@@ -92,18 +92,23 @@
 
             $('#messageText').removeClass('is-invalid');
             $('#errorText').addClass('d-none');
-            
-            let topicId = @Model.Thema.Id; 
+
+            let topicId = @Model.Thema.Id;
             $.ajax({
                 url: '@Url.Action("SendMessage", "Thema")',
                 type: 'POST',
-                data: { text: text, topicId: topicId },
-                success: function(response) {
+                data: {text: text, topicId: topicId},
+                success: function (response) {
                     $('#messageText').val('');
                     $('#charCount').text('Осталось символов: 100');
-                    $('#chatWindow').html(response);
+
+                    // Добавляем новое сообщение в конец
+                    $('#chatWindow').append(response);
+
+                    // Автоматическая прокрутка вниз
+                    $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
                 },
-                error: function() {
+                error: function () {
                     console.log("Ошибка при отправке сообщения.");
                 }
             });
@@ -123,5 +128,5 @@
             error: () => console.log('error on reply')
         });
     };
-</script>
+    </script>
 }
