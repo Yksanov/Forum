@@ -5,14 +5,16 @@
 
 <h4 class="text-center">Вход на сайт</h4>
 <div class="row">
-    <div class="card border-2">
-        <div class="card-body d-flex justify-content-center">
-            <div class="col-md-4">
-                <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" asp-anti-forgery="true">
+    <div class="col-md-4 mx-auto">
+        <div class="card border-2 border-primary">
+            <div class="card-body">
+                <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl"
+                      asp-anti-forgery="true">
                     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                     <div>
                         <div class="mb-3">
-                            <input asp-for="UserNameOrEmail" type="text" class="form-control" placeholder="Логин или эл. адрес"><br/>
+                            <input asp-for="UserNameOrEmail" type="text" class="form-control"
+                                   placeholder="Логин или эл. адрес"><br/>
                             <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
                         </div>
                         <div class="mb-2">
@@ -37,7 +39,7 @@
                     </div>
                 </form>
                 <div class="border border-2 text-center p-3">
-                    <p>У вас ещё нет аккаунта ? <a asp-action="Register" class="text-decoration-none">Зарегистрироваться</a></p>
+                    <p>У вас ещё нет аккаунта ? <a asp-action="Register"class="text-decoration-none">Зарегистрироваться</a></p>
                 </div>
             </div>
         </div>
@@ -47,25 +49,25 @@
 @section Scripts
 {
     <script>
-    $(document).ready(function(){
-        
-        $(".toggle-password").addClass("fa-eye");
-        $("#password").attr("type", "password");
-    
-        $(".toggle-password").click(function() {
+        $(document).ready(function () {
 
-            $(this).toggleClass("fa-eye fa-eye-slash");
+            $(".toggle-password").addClass("fa-eye");
+            $("#password").attr("type", "password");
 
-            var input = $($(this).attr("toggle"));
+            $(".toggle-password").click(function () {
 
-            if (input.attr("type") === "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
+                $(this).toggleClass("fa-eye fa-eye-slash");
+
+                var input = $($(this).attr("toggle"));
+
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
         });
-    });
-</script>
+    </script>
 
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
