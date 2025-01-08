@@ -34,11 +34,11 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            User user = await _userManager.FindByEmailAsync(model.UserNameOrEmail);
+            User user = await _userRepository.FindByEmailAsync(model.UserNameOrEmail);
 
             if (user == null)
             {
-                user = await _userManager.FindByNameAsync(model.UserNameOrEmail);
+                user = await _userRepository.FindByNameAsync(model.UserNameOrEmail);
             }
             
             if (user == null)
