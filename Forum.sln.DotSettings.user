@@ -2,5 +2,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a096c205_002D3f8c_002D4be1_002Db9c6_002Dbef7193e2e11/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CheckMainPageTitle" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::CFC59A2D-4C10-4D3E-90EF-DAF1E38979A6::net8.0::Forum.Tests.MyWebTests.CheckMainPageTitle&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CFC59A2D-4C10-4D3E-90EF-DAF1E38979A6::net8.0::Forum.Tests.MyWebTests.LoginEmptyDataErrorMessage&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CFC59A2D-4C10-4D3E-90EF-DAF1E38979A6::net8.0::Forum.Tests.MyWebTests.LoginAndPasswordWrongDataErrorMessage&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CFC59A2D-4C10-4D3E-90EF-DAF1E38979A6::net8.0::Forum.Tests.MyWebTests.PasswordEmptyDataErrorMessage&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CFC59A2D-4C10-4D3E-90EF-DAF1E38979A6::net8.0::Forum.Tests.MyWebTests.LoginAndCheckMainPageMessage&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -10,11 +10,10 @@
             <div class="card-body">
                 <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl"
                       asp-anti-forgery="true">
-                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <div class="validation-summary-errors text-danger" asp-validation-summary="ModelOnly"></div>
                     <div>
                         <div class="mb-3">
-                            <input asp-for="UserNameOrEmail" type="text" class="form-control"
-                                   placeholder="Логин или эл. адрес"><br/>
+                            <input asp-for="UserNameOrEmail" type="text" class="form-control" id="login" placeholder="Логин или эл. адрес"><br/>
                             <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
                         </div>
                         <div class="mb-2">
@@ -34,7 +33,7 @@
 
 
                         <div class="form-group py-3 d-flex justify-content-center">
-                            <input type="submit" value="Войти" class="btn btn-outline-primary px-5"/>
+                            <input type="submit" value="Войти" class="btn btn-outline-primary px-5" id="sumbit"/>
                         </div>
                     </div>
                 </form>
